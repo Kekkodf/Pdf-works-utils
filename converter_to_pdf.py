@@ -1,5 +1,4 @@
 #convert images to pdf
-import os
 from PIL import Image
 
 #convert from png
@@ -16,9 +15,23 @@ def convert_jpg_to_pdf(path):
 
 #decomment the function you need
 def main():
-    path = '/home/.../Pdf-works-utils/test/test_image.jpg'
-    #convert_png_to_pdf(path)
-    convert_jpg_to_pdf(path)
+    print('--------------------------')
+    path = str(input('Insert path of the image: '))
+    #get the last 3 characters of the path
+    var = path[-3:]
+    print('Starting conversion...')
+    print('--------------------------')
+    if var == 'png':
+        convert_png_to_pdf(path)
+        print('Image converted successfully!')
+        exit()
+    elif var == 'jpg':
+        convert_jpg_to_pdf(path)
+        print('Image converted successfully!')
+        exit()
+    else:
+        print('Extension not supported')
+        main()
 
 if __name__ == '__main__':
     main()

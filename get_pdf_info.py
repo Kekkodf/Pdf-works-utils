@@ -1,9 +1,7 @@
-import PyPDF2 
 from PyPDF2 import PdfReader
-from io import BytesIO
 
 def main():
-    path = '/home/.../Pdf-works-utils/test/dummy.pdf'
+    path = str(input('Insert path of the pdf: '))
     with open(path, 'rb') as f:
         pdf = f.read()
     reader = PdfReader(path)
