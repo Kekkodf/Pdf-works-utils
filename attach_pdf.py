@@ -2,24 +2,37 @@
 from PyPDF2 import PdfReader, PdfMerger
 from io import BytesIO
 
-#open first file
-with open('/home/.../Pdf-works-utils/test/File_1.pdf', 'rb') as f:
-    pdf1 = f.read()
 
-#open second file
-with open('/home/.../Pdf-works-utils/test/File_2.pdf', 'rb') as f:
-    pdf2 = f.read()
+def attach_pdf(n, array_path):
+    if n < 2:
+        print('Error: you must attach at least two pdf')
+        main()
+    elif n!= len(array_path):
+        print('Error: you must insert the same number of path and pdf')
+        main()
+    else:
+        output = PdfMerger()
+        for i in range(n):
+            with open(array_path[i], 'rb') as f:
+                pdf = f.read()
+            pdf = PdfReader(BytesIO(pdf))
+            output.append(pdf)
+        with open('/home/kdf/Scrivania/Pdf-works-utils/test/Merged.pdf', 'wb') as f:
+            output.write(f)
 
-#read and merge files
-pdf1 = PdfReader(BytesIO(pdf1))
-pdf2 = PdfReader(BytesIO(pdf2))
+def main():
+    print('--------------------------')
+    n = int(input('Insert number of pdf to attach: '))
+    print('--------------------------')
+    array_path = []
+    for i in range(n):
+        path = str(input('Insert path of the pdf: '))
+        array_path.append(path)
+    print('--------------------------')
+    print('Attaching pdf...')
+    attach_pdf(n, array_path)
+    print('--------------------------')
+    print('Pdf attached successfully!')
 
-output = PdfMerger()
-
-output.append(pdf1)
-output.append(pdf2)
-
-#save in the folder destination
-with open('/home/.../Pdf-works-utils/test/output.pdf', 'wb') as f:
-    output.write(f)
-
+if __name__ == '__main__':
+    main()
